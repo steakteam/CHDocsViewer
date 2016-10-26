@@ -8,19 +8,17 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 
-    @Override
-    public void start(Stage primaryStage) throws Exception{
-        FXMLLoader fxmlLoader = new FXMLLoader();
-        Parent root = fxmlLoader.load(getClass().getResource("main.fxml"));
-        primaryStage.setTitle("CommandHelper Docs Viewer");
-        primaryStage.setMinHeight(500);
-        primaryStage.setMinWidth(800);
-        primaryStage.setScene(new Scene(root, 800, 500));
-        primaryStage.show();
-    }
+	public static void main(String[] args) {
+		launch(args);
+	}
 
-
-    public static void main(String[] args) {
-        launch(args);
-    }
+	@Override
+	public void start(Stage primaryStage) throws Exception {
+		Parent root = FXMLLoader.load(getClass().getResource("/me/itstake/chdocsviewer/main.fxml"));
+		primaryStage.setTitle("CommandHelper Docs Viewer");
+		primaryStage.setMinHeight(500);
+		primaryStage.setMinWidth(800);
+		primaryStage.setScene(new Scene(root, 800, 500));
+		primaryStage.show();
+	}
 }
