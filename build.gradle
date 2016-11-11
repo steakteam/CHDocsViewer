@@ -1,11 +1,11 @@
 apply plugin: 'java'
 apply plugin: 'application'
 
-[compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
-
 sourceCompatibility = 1.8
-
 mainClassName = 'me.itstake.chdocsviewer.Main'
+
+compileJava.options.encoding = 'UTF-8'
+buildDir = 'out'
 
 sourceSets {
     main {
@@ -24,10 +24,21 @@ repositories {
 
 dependencies {
     compile 'com.google.code.gson:gson:2.7'
+    compile fileTree(dir: 'libs', include: ['*.jar'])
 }
 
 jar {
     manifest {
         attributes 'Main-Class': 'me.itstake.chdocsviewer.Main'
     }
+    from {
+        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+
+    destinationDir = file("$rootDir/target/")
+}
+
+task clean(type: Delete) {
+    delete "$buildDir"
+    delete "$rootDir/target"
 }
