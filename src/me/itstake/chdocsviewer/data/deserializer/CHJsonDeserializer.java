@@ -32,7 +32,7 @@ public class CHJsonDeserializer {
 	private Map<String, ArrayList<LinkedTreeMap<String, String>>> getMap() {
 		Map<String, ArrayList<LinkedTreeMap<String, String>>> map = null;
 		if (jsonFile != null) {
-			String fileContents = FileUtils.getContents(jsonFile);
+			String fileContents = FileUtils.readText(jsonFile);
 			Type type = new TypeToken<Map<String, ArrayList<LinkedTreeMap<String, String>>>>() {
 			}.getType();
 			try {

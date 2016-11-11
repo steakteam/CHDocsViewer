@@ -1,16 +1,16 @@
 package me.itstake.chdocsviewer;
 
-import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import me.itstake.chdocsviewer.data.EventData;
 import me.itstake.chdocsviewer.data.FunctionData;
-import me.itstake.chdocsviewer.event.button.SearchButton;
-import me.itstake.chdocsviewer.event.menu.LoadJsonItem;
+import me.itstake.chdocsviewer.event.button.SearchButtonEvent;
+import me.itstake.chdocsviewer.event.menu.item.LoadJsonItemEvent;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -24,32 +24,31 @@ public class Controller implements Initializable {
 	@FXML
 	private Button searchBtn;
 	@FXML
-	private TableView<FunctionData> funcList;
+	private TableView<FunctionData> funcView;
 	@FXML
-	private TableView<EventData> eventList;
+	private TableView<EventData> eventView;
+	@FXML
+	private TextField searchField;
 
 	private void menuBarInit() {
 		menuBar.setUseSystemMenuBar(true);
 	}
 
 	private void menuItemInit() {
-		loadJson.setOnAction(
-				new LoadJsonItem(funcList, eventList)
-		);
+		loadJson.setOnAction(new LoadJsonItemEvent(funcView, eventView));
 	}
 
-	private void buttonInit() {
-		searchBtn.setOnAction(new SearchButton());
+	private void searchInit() {
+		SearchButtonEvent event = new SearchButtonEvent(funcView, eventView, searchField);
+		searchBtn.setOnAction(event);
+		searchField.setOnAction(event);
 	}
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		menuBarInit();
 		menuItemInit();
-		buttonInit();
-		funcList.setItems(FXCollections.observableArrayList(
-				new FunctionData("a", "b", "c", "d")
-		));
+		searchInit();
 	}
 
 }
