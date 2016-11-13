@@ -2,11 +2,9 @@ package me.itstake.chdocsviewer;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.MenuBar;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.text.Text;
+import javafx.util.Callback;
 import me.itstake.chdocsviewer.data.EventData;
 import me.itstake.chdocsviewer.data.FunctionData;
 import me.itstake.chdocsviewer.event.button.SearchButtonEvent;
@@ -44,11 +42,44 @@ public class Controller implements Initializable {
 		searchField.setOnAction(event);
 	}
 
+	private void tableInit() {
+		for(TableColumn column : funcView.getColumns()) {
+			column.setCellFactory(new Callback<TableColumn<FunctionData, String>, TableCell>() {
+				@Override
+				public TableCell<FunctionData, String> call(TableColumn param) {
+					TableCell<FunctionData, String> cell = new TableCell<>();
+					Text text = new Text();
+					cell.setGraphic(text);
+					cell.setPrefHeight(Control.USE_COMPUTED_SIZE);
+					text.wrappingWidthProperty().bind(column.widthProperty());
+					text.textProperty().bind(cell.itemProperty());
+					return cell;
+				}
+			});
+		}
+
+		for(TableColumn ecolumn : eventView.getColumns()) {
+			ecolumn.setCellFactory(new Callback<TableColumn<EventData, String>, TableCell>() {
+				@Override
+				public TableCell<EventData, String> call(TableColumn param) {
+					TableCell<EventData, String> cell = new TableCell<>();
+					Text text = new Text();
+					cell.setGraphic(text);
+					cell.setPrefHeight(Control.USE_COMPUTED_SIZE);
+					text.wrappingWidthProperty().bind(ecolumn.widthProperty());
+					text.textProperty().bind(cell.itemProperty());
+					return cell;
+				}
+			});
+		}
+	}
+
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		menuBarInit();
 		menuItemInit();
 		searchInit();
+		tableInit();
 	}
 
 }

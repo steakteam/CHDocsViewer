@@ -34,13 +34,13 @@ public class LoadJsonItemEvent implements EventHandler<ActionEvent> {
 		File file = chooser.showOpenDialog(new Stage());
 		if (file != null) {
 			if (file.getName().endsWith(".json")) {
+				System.out.println("JSON File Loaded");
 				CHJsonDeserializer handler = new CHJsonDeserializer(file);
 				if (!handler.isMapEmpty()) {
 					ObservableList<FunctionData> funcList = handler.getFuncList();
 					ObservableList<EventData> eventList = handler.getEventList();
 					funcView.setItems(funcList);
 					eventView.setItems(eventList);
-
 					SortUtils.ascendingFirstColumn(funcView);
 					SortUtils.ascendingFirstColumn(eventView);
 				}

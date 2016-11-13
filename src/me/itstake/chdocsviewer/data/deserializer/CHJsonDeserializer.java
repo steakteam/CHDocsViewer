@@ -54,9 +54,9 @@ public class CHJsonDeserializer {
 
 		list.addAll(funcList.stream().map(func -> new FunctionData(
 				func.get("name") + "()",
-				func.get("ret"),
-				func.get("args"),
-				func.get("desc")
+				func.get("ret").replace("&lt;", "<").replace("&gt;", ">"),
+				func.get("args").replace("&lt;", "<").replace("&gt;", ">"),
+				func.get("desc").replace("&lt;", "<").replace("&gt;", ">")
 		)).collect(Collectors.toList()));
 
 		return list;
@@ -67,13 +67,17 @@ public class CHJsonDeserializer {
 		List<LinkedTreeMap<String, String>> eventList = map.get("events");
 
 		list.addAll(eventList.stream().map(event -> new EventData(
-				event.get("name"),
-				event.get("desc"),
-				event.get("prefilter"),
-				event.get("eventData"),
-				event.get("mutable")
+				event.get("name").replace("&lt;", "<").replace("&gt;", ">"),
+				event.get("desc").replace("&lt;", "<").replace("&gt;", ">"),
+				event.get("prefilter").replace("&lt;", "<").replace("&gt;", ">"),
+				event.get("eventData").replace("&lt;", "<").replace("&gt;", ">"),
+				event.get("mutability").replace("&lt;", "<").replace("&gt;", ">")
 		)).collect(Collectors.toList()));
 
 		return list;
+	}
+
+	private String replaceXmlChars(String item) {
+		return item.replace("&lt;", "<").replace("&gt;", ">");
 	}
 }
