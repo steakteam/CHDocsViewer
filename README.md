@@ -6,7 +6,7 @@
 ### 문서 파일 출력 
 아래 내용을 커맨드헬퍼 플러그인이 있는 경로에 .bat 형태로 저장시키거나, 명령 프롬프트로 실행시키셔야 합니다.
 
-> java -jar CommandHelper.jar -o ch.json
+> java -jar CommandHelper.jar doc-export -o ch.json
 
 ### 문서 파일 불러오기
 CHDocsViewer 프로그램에서 메뉴 File 의 Load Docs JSON... 항목을 클릭하여 출력한 문서 파일을 불러오면 테이블에 정보가 정렬됩니다.
